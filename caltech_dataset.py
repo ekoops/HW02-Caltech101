@@ -14,20 +14,22 @@ def pil_loader(path):
         img = Image.open(f)
         return img.convert('RGB')
 
+
 class Caltech(VisionDataset):
     def __init__(self, root, split='train', transform=None, target_transform=None):
         super(Caltech, self).__init__(root, transform=transform, target_transform=target_transform)
 
-        self.split = split # This defines the split you are going to use
-                           # (split files are called 'train.txt' and 'test.txt')
+        self.split = split
+
         file_path = f"{root}/{split}.txt"
         data = pd.read_csv(file_path, sep="/", header=None, usecols=[0, 1], names=["label", "img"])
         images = []
         labels = []
         for i, row in data.iterrows():
             label = row["label"]
-            labels.append(label)
-            images.append(plt.imread(f"{root}/101_ObjectCategories/{row['label']}/{row['img']}"))
+            if label != "BACKGROUND_Google":
+                labels.append(label)
+                images.append(plt.imread(f"{root}/101_ObjectCategories/{row['label']}/{row['img']}"))
         self.images = images
         self.labels = pd.factorize(labels)
         self.transform = transform
