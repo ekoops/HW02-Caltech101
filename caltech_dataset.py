@@ -25,9 +25,9 @@ class Caltech(VisionDataset):
         data = pd.read_csv(file_path, sep="/", header=None, usecols=[0, 1], names=["label", "img"])
         images = []
         labels = []
-        print("CIAO")
         for i, row in data.iterrows():
             label = row["label"]
+            print(row["label"])
             if label != "BACKGROUND_Google":
                 labels.append(label)
                 images.append(pil_loader(f"{root}/101_ObjectCategories/{row['label']}/{row['img']}"))
