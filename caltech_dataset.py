@@ -27,12 +27,12 @@ class Caltech(VisionDataset):
         labels = []
         for i, row in data.iterrows():
             label = row["label"]
-            print(row["label"])
             if label != "BACKGROUND_Google":
                 labels.append(label)
                 images.append(pil_loader(f"{root}/101_ObjectCategories/{row['label']}/{row['img']}"))
         self.images = images
         self.labels = pd.factorize(labels)[0]
+        print(self.labels.shape)
         self.transform = transform
         self.target_transform = target_transform
 
