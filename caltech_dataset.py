@@ -29,7 +29,7 @@ class Caltech(VisionDataset):
             label = row["label"]
             if label != "BACKGROUND_Google":
                 labels.append(label)
-                images.append(plt.imread(f"{root}/101_ObjectCategories/{row['label']}/{row['img']}"))
+                images.append(pil_loader(f"{root}/101_ObjectCategories/{row['label']}/{row['img']}"))
         self.images = images
         self.labels = pd.factorize(labels)[0]
         self.transform = transform
