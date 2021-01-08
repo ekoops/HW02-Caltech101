@@ -31,7 +31,7 @@ class Caltech(VisionDataset):
                 labels.append(label)
                 images.append(plt.imread(f"{root}/101_ObjectCategories/{row['label']}/{row['img']}"))
         self.images = images
-        self.labels = pd.factorize(labels)
+        self.labels = pd.factorize(labels)[0]
         self.transform = transform
         self.target_transform = target_transform
 
